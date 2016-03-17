@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+  es:
+    container_name: es
+    image: elasticsearch:latest
+    ports:
+     - "9200:9200"
+     - "9300:9300"
+
+  kibana:
+    image: kibana:latest
+    container_name: kibana
+    ports:
+     - "5601:5601"
+    environment:
+     - ELASTICSEARCH_URL=http://es:9200
+    links:
+     - es:elasticsearch
+
+  packetbeat:
+    build: .
+    container_name: packetbeat
+    command: ./packetbeat -e -c=packetbeat.yml
+    networks:
+     -  labelcraft
+
+  test:
+    image: phusion/baseimage
+    command: bash -c "apt-get update"
+
+networks:
+  default:
+    external:
+      name: labelcraft
