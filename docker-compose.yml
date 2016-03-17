@@ -23,13 +23,8 @@ services:
     container_name: packetbeat
     command: ./packetbeat -e -c=packetbeat.yml
     networks:
-     -  labelcraft
+     - "host"
 
   test:
     image: phusion/baseimage
     command: bash -c "apt-get update"
-
-networks:
-  default:
-    external:
-      name: labelcraft
