@@ -6,35 +6,10 @@ The packetbeat containers log directly to Elasticsearch and store logs locally u
 
 ###Docker compose
 
-Installation instructions : https://docs.docker.com/compose/
-
 To start Elasticsearch, Kibana and Packetbeat using docker-compose run :
 ```
-docker-compose up -d packetbeat
-```
-Other useful commands :
-```
-docker-compose ps
-docker-compose logs packetbeat
-```
-Start some test containers to test the logging is working :
-```
-docker-compose scale test=10
-```
-Open Browser : http://localhost:5601
-
-Change index pattern from :
-
-logstash-*
-
-to
-
-packetbeat-*
-
-Teardown everything :
-```
-docker-compose stop
-docker-compose rm -f
+docker-compose up -d
+docker-compose up -d test
 ```
 
 ### Manually setting up each container individually
@@ -62,26 +37,33 @@ docker build --pull -t logging/packetbeat .
 docker run -d --restart=always --net=host --name pb logging/packetbeat
 ```
 
-#### Check everything is running as expected :
+#### Start test container to create data
 ```
-docker ps
-
-Sample output
-
-CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS                                            NAMES
-7bf1b8d6676e        logging/packetbeat     "./packetbeat -e -c=p"   10 seconds ago      Up 9 seconds                                                         pb
-4e47f7fe8fd7        kibana:latest          "/docker-entrypoint.s"   35 seconds ago      Up 34 seconds       0.0.0.0:5601->5601/tcp                           kibana
-41160a58deab        elasticsearch:latest   "/docker-entrypoint.s"   46 seconds ago      Up 45 seconds       0.0.0.0:9200->9200/tcp, 0.0.0.0:9300->9300/tcp   elasticsearch
-
+docker-compose up -d test
 ```
 
 Open Browser : http://localhost:5601
 
 Change index pattern from :
 
-logstash-*
+`logstash-*`
 
 to
 
-packetbeat-*
+`packetbeat-*`
 
+Other useful commands :
+```
+docker-compose ps
+docker-compose logs packetbeat
+```
+Start some test containers to test the logging is working :
+```
+docker-compose scale test=10
+```
+
+Teardown everything :
+```
+docker-compose stop
+docker-compose rm -f
+```
