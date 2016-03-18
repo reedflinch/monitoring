@@ -8,7 +8,8 @@ The packetbeat containers log directly to Elasticsearch and store logs locally u
 
 To start Elasticsearch, Kibana and Packetbeat using docker-compose run :
 ```
-docker-compose up -d packetbeat
+docker-compose up -d
+docker-compose up -d test
 ```
 
 ### Manually setting up each container individually
