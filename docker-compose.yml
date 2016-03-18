@@ -3,13 +3,13 @@ version: '2'
 services:
   es:
     container_name: es
-    image: elasticsearch:latest
+    build: es
     ports:
      - "9200:9200"
      - "9300:9300"
 
   kibana:
-    image: kibana:latest
+    build: kibana
     container_name: kibana
     ports:
      - "5601:5601"
@@ -19,7 +19,7 @@ services:
      - es:elasticsearch
 
   packetbeat:
-    build: .
+    build: packetbeat
     container_name: packetbeat
     command: ./packetbeat -e -c=packetbeat.yml
     networks:
