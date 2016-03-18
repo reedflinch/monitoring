@@ -16,7 +16,7 @@ kibana:
    - elasticsearch
 
 packetbeat:
-  build: .
+  build: packetbeat
   container_name: packetbeat
   command: >
     /bin/bash -c "
