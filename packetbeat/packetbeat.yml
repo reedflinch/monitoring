@@ -95,7 +95,7 @@ output:
   # save_topology: specify if the topology is saved in Elasticsearch
   elasticsearch:
     enabled: true
-    hosts: ["es:9200"]
+    hosts: ["elasticsearch:9200"]
     save_topology: true
 
   # Redis as output
