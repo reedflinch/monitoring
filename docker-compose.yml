@@ -22,7 +22,7 @@ services:
     build: packetbeat
     container_name: packetbeat
     command: ./packetbeat -e -c=packetbeat.yml
-    networks:
+    networks_mode: 
      - "host"
 
   test:
